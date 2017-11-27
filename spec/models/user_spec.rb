@@ -1,6 +1,18 @@
 require "rails_helper"
 
 RSpec.describe User, type: :model do
+  describe '#set_auth_token' do
+    context 'when the user does not exist' do
+      let(:user) { FactoryBot.build(:user, auth_token: nil) }
+
+      it 'generates a new auth_token' do
+        user.save
+
+        expect(user.auth_token).to be_present
+      end
+    end
+  end
+
   describe '.from_omniauth' do
     let(:access_token) { OpenStruct.new(info: data) }
     let(:data) do
