@@ -13,7 +13,7 @@ class Api::V1::SignInController < ApplicationController
         user.password  = Devise.friendly_token[0,20]
       end
 
-      render json: @user, status: :success
+      render json: @user
     rescue GoogleIDToken::ValidationError => e
       render json: { error: 'Login com Google não autorizado' }, status: :unauthorized
     end
